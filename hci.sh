@@ -4,7 +4,7 @@
 #
 # See https://github.com/hupstream/hubs-cli-install for source and issue report.
 #
-# (c) 2013 hupstream
+# (c) 2013-14 hupstream
 # Published under GPLv2 license.
 #
 
