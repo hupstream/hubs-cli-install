@@ -28,12 +28,12 @@ identify_system() {
     # FIXME check all possible versions found in sources.list
     VALID_VERSIONS=(wheezy jessie sid)
     VERSION=$(grep ^deb /etc/apt/sources.list|awk '{print $3}'|uniq|head -1)
-    for n in $VALID_VERSIONS; do
-      if [ "$n" = "$VERSION" ]; then
+    for n in "${VALID_VERSIONS[@]}"; do
+      if [ "$n" == "$VERSION" ]; then
         NAME=$n
       fi
     done
-    if [ "x$NAME" = "x" ]; then
+    if [ "x$NAME" == "x" ]; then
       echo ""
       echo "Ah. Sorry: this Debian version ($VERSION) is not supported, yet."
       echo "We're doing the best we can to make this an useful service."
