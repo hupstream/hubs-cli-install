@@ -8,12 +8,16 @@
 # Published under GPLv2 license.
 #
 
-KTHXBYE=<<EOF
-Please let us know at @hupstream or mailbox@hupstream.com about it.
+KTHXBYE=$(cat <<K
 
-Thank you and have a great, nice day!
+Please let us know about it at:
+ - twitter.com/@hupstream
+ - hubs+support@hupstream.com
 
-EOF
+Thank you, have a nice day!
+
+K
+)
 
 NAME=""
 
@@ -31,17 +35,16 @@ identify_system() {
     done
     if [ "x$NAME" = "x" ]; then
       echo ""
-      echo "Ah. Sorry, but this version ($VERSION) is not supported, yet."
+      echo "Ah. Sorry: this Debian version ($VERSION) is not supported, yet."
       echo "We're doing the best we can to make this an useful service."
-      echo $KTHXBYE
+      echo "$KTHXBYE"
       exit 1
     fi
   else
     echo ""
-    echo "Ah."
     echo "This does not seem to be a Debian system (no /etc/apt/sources.list)."
-    echo "hubs is still a Debian-only service. Sorry for that."
-    echo $KTHXBYE
+    echo "hubs is still a Debian-only service."
+    echo "$KTHXBYE"
     exit 1
   fi
 }
@@ -82,12 +85,21 @@ install_hubs_cli() {
   fi
 }
 
+echo
+echo "https://hubs.im/ command-line helper installation"
+echo "================================================="
+
+identify_system
+
 echo "Hello $USER!"
 echo ""
 echo "I am going to install hubs command-line helper on your system."
 echo "I will run a few sudo commands, so I may ask for your password once."
+echo " - install dependencies,"
+echo " - add hubs.im own repository,"
+echo " - install hubs command-line helper from there."
 echo ""
-echo "Please, feel free to read the source of this script before I run it."
+echo "Feel free to read the source of this script before running it."
 echo $KTHXBYE
 read -n 1 -p "Shall I install it now? (yes/no) " R
 
@@ -95,18 +107,17 @@ echo ""
 if [ "$R" = "y" -o "$R" = "Y" ]; then
   echo "Ok, let's do it:"
 else
-  echo "Ok, not doing anything. Have a great, nice day!"
+  echo "Ok, I'm leaving it here. Have a nice day!"
   exit 0
 fi
 
-identify_system
 install_dependencies
 add_gpg_keys
 add_hubs_repository
 install_hubs_cli
 
 echo ""
-echo "You're set! Welcome on board. You may now run 'hubs start' to see "
+echo "You're set! Welcome on board. Run 'hubs start' to see "
 echo "how to get started and build your first package!"
 
 exit 0
